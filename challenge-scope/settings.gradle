@@ -1,0 +1,4 @@
+rootProject.name = 'challenge-scope'
+include 'challenge-util'
+include 'challenge-entity'
+include 'challenge-dto'

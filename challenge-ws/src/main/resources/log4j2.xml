@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="ERROR">
+
+    <DynamicThresholdFilter key="X-B3-Flags-Debug" onMatch="ACCEPT" defaultThreshold="warn" onMismatch="NEUTRAL">
+        <KeyValuePair key="true" value="trace"/>
+    </DynamicThresholdFilter>
+
+    <Appenders>
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout
+                    pattern="%highlight{%p|%d{ISO8601}{GMT}|%X{X-trace-id}|%X{X-F-Session-ID}| %X{X-Querystring} |%t|%C{1}|%m%n}{FATAL=red blink, ERROR=red, WARN=yellow bold, INFO=black, DEBUG=green bold, TRACE=blue}"/>
+        </Console>
+    </Appenders>
+    <Loggers>
+        <Root level="INFO">
+            <AppenderRef ref="Console"/>
+        </Root>
+    </Loggers>
+</Configuration>

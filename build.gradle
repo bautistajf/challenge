@@ -1,0 +1,20 @@
+plugins {
+    id "org.sonarqube" version "2.8"
+}
+
+apply plugin: 'org.sonarqube'
+
+
+apply from: "$rootDir/commonDependencies.gradle"
+
+
+sonarqube {
+    properties {
+        property "sonar.working.directory", "$rootDir/build/sonar"
+        property "sonar.projectName", "challenge"
+        property 'sonar.java.coveragePlugin', "jacoco"
+        property "sonar.sourceEncoding", "UTF-8"
+        property "sonar.coverage.exclusions", "**/configuration/*.*, **/mapper/*.*, **/util/*.*, **/entity/*.*, **/exception/*.*, **/dto/*.*"
+        property "sonar.exclusions", ""
+    }
+}

@@ -1,0 +1,129 @@
+plugins {
+    id 'org.springframework.boot' version '2.3.5.RELEASE'
+    id 'io.spring.dependency-management' version '1.0.8.RELEASE'
+    id 'java'
+    id "jacoco"
+}
+
+apply plugin: 'java'
+
+def globalConf = rootProject.ext
+dependencies {
+
+    Map<String, String> dependenciesImplementation = globalConf.implementation
+    Map<String, String> dependenciesCompile = globalConf.compile
+    Map<String, String> dependenciesCompileOnly = globalConf.compileOnly
+    Map<String, String> dependenciesAnnotationProcessors = globalConf.annotationProcessors
+    Map<String, String> dependenciesTestAnnotationProcessors = globalConf.testAnnotationProcessors
+    Map<String, String> dependenciesTestImplementation = globalConf.testImplementation
+    Map<String, String> dependenciesTestCompile = globalConf.testCompile
+    Map<String, String> implementationDB = globalConf.implementationDB
+    Map<String, String> dependenciesTestJunit5 = globalConf.testCompileJunit5
+    Map<String, String> dependenciesTestRuntimeJunit5 = globalConf.testRuntimeJunit5
+    Map<String, String> implementationData = globalConf.implementationData
+
+    for (dependency in implementationData) {
+        if (commonDependenciesExclusions.containsKey(dependency.getKey())) {
+            implementation(dependency.getValue(), commonDependenciesExclusions.get(dependency.getKey()))
+        } else {
+            implementation dependency.getValue()
+        }
+    }
+
+    for (dependency in dependenciesImplementation) {
+        if (commonDependenciesExclusions.containsKey(dependency.getKey())) {
+            implementation(dependency.getValue(), commonDependenciesExclusions.get(dependency.getKey()))
+        } else {
+            implementation dependency.getValue()
+        }
+    }
+
+    for (dependency in implementationDB) {
+        if (commonDependenciesExclusions.containsKey(dependency.getKey())) {
+            implementation(dependency.getValue(), commonDependenciesExclusions.get(dependency.getKey()))
+        } else {
+            implementation dependency.getValue()
+        }
+    }
+
+    for (dependency in dependenciesCompile) {
+        if (commonDependenciesExclusions.containsKey(dependency.getKey())) {
+            compile(dependency.getValue(), commonDependenciesExclusions.get(dependency.getKey()))
+        } else {
+            compile dependency.getValue()
+        }
+    }
+    for (dependency in dependenciesCompileOnly) {
+        if (commonDependenciesExclusions.containsKey(dependency.getKey())) {
+            compileOnly(dependency.getValue(), commonDependenciesExclusions.get(dependency.getKey()))
+        } else {
+            compileOnly dependency.getValue()
+        }
+    }
+
+    for (dependency in dependenciesAnnotationProcessors) {
+        if (commonDependenciesExclusions.containsKey(dependency.getKey())) {
+            annotationProcessor(dependency.getValue(), commonDependenciesExclusions.get(dependency.getKey()))
+        } else {
+            annotationProcessor dependency.getValue()
+        }
+    }
+    for (dependency in dependenciesTestAnnotationProcessors) {
+        if (commonDependenciesExclusions.containsKey(dependency.getKey())) {
+            testAnnotationProcessor(dependency.getValue(), commonDependenciesExclusions.get(dependency.getKey()))
+        } else {
+            testAnnotationProcessor dependency.getValue()
+        }
+    }
+
+    for (dependency in dependenciesTestImplementation) {
+        if (commonDependenciesExclusions.containsKey(dependency.getKey())) {
+            testImplementation(dependency.getValue(), commonDependenciesExclusions.get(dependency.getKey()))
+        } else {
+            testImplementation dependency.getValue()
+        }
+    }
+    for (dependency in dependenciesTestCompile) {
+        if (commonDependenciesExclusions.containsKey(dependency.getKey())) {
+            testCompile(dependency.getValue(), commonDependenciesExclusions.get(dependency.getKey()))
+        } else {
+            testCompile dependency.getValue()
+        }
+    }
+
+    for (dependency in dependenciesTestJunit5) {
+        if (commonDependenciesExclusions.containsKey(dependency.getKey())) {
+            testCompile(dependency.getValue(), commonDependenciesExclusions.get(dependency.getKey()))
+        } else {
+            testCompile dependency.getValue()
+        }
+    }
+
+    for (dependency in dependenciesTestRuntimeJunit5) {
+        if (commonDependenciesExclusions.containsKey(dependency.getKey())) {
+            testRuntimeOnly(dependency.getValue(), commonDependenciesExclusions.get(dependency.getKey()))
+        } else {
+            testRuntimeOnly dependency.getValue()
+        }
+    }
+
+    compile project(':challenge-dto')
+    compile project(':challenge-scope')
+    testImplementation(testFixtures(project(":challenge-entity")))
+    testImplementation(testFixtures(project(":challenge-dto")))
+}
+
+apply from: "$rootDir/commonConfiguration.gradle"
+
+
+bootJar {
+    enabled = true
+    launchScript()
+    version = project.version
+    exclude("application*.yml", "application*.properties", "log4j2.xml")
+    manifest {
+        attributes 'application-version': 'project.version'
+    }
+}
+
+

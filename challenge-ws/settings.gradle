@@ -1,0 +1,3 @@
+rootProject.name = 'challenge-ws'
+include 'challenge-dto'
+include 'challenge-scope'

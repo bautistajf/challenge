@@ -1,0 +1,17 @@
+# Project exclude paths
+/.gradle/
+/build/
+/challenge-dto/build/
+/challenge-dto/build/classes/java/main/
+/challenge-dto/build/classes/java/testFixtures/
+/challenge-entity/build/
+/challenge-entity/build/classes/java/main/
+/challenge-entity/build/classes/java/testFixtures/
+/challenge-scope/build/
+/challenge-scope/build/classes/java/main/
+/challenge-scope/build/classes/java/test/
+/challenge-util/build/
+/challenge-util/build/classes/java/main/
+/challenge-ws/build/
+/challenge-ws/build/classes/java/main/
+/challenge-ws/build/classes/java/test/

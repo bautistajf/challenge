@@ -1,0 +1,74 @@
+plugins {
+    id 'org.springframework.boot' version '2.3.5.RELEASE'
+    id 'io.spring.dependency-management' version '1.0.8.RELEASE'
+    id 'java'
+    id "jacoco"
+    id 'java-test-fixtures'
+}
+
+apply plugin: 'java'
+
+def globalConf = rootProject.ext
+dependencies {
+
+    Map<String, String> dependenciesImplementation = globalConf.implementation
+    Map<String, String> dependenciesCompile = globalConf.compile
+    Map<String, String> dependenciesCompileOnly = globalConf.compileOnly
+    Map<String, String> dependenciesAnnotationProcessors = globalConf.annotationProcessors
+    Map<String, String> dependenciesTestAnnotationProcessors = globalConf.testAnnotationProcessors
+    Map<String, String> dependenciesTestImplementation = globalConf.testImplementation
+    Map<String, String> dependenciesTestCompile = globalConf.testCompile
+    Map<String, String> implementationDB = globalConf.implementationDB
+    Map<String, String> dependenciesTestJunit5 = globalConf.testCompileJunit5
+    Map<String, String> dependenciesTestRuntimeJunit5 = globalConf.testRuntimeJunit5
+    Map<String, String> implementationData = globalConf.implementationData
+
+    for (dependency in implementationData) {
+        implementation dependency.getValue()
+    }
+
+    for (dependency in dependenciesImplementation) {
+        implementation dependency.getValue()
+    }
+
+    for (dependency in implementationDB) {
+        runtimeOnly dependency.getValue()
+    }
+
+    for (dependency in dependenciesCompile) {
+        compile dependency.getValue()
+    }
+    for (dependency in dependenciesCompileOnly) {
+        compileOnly dependency.getValue()
+    }
+
+    for (dependency in dependenciesAnnotationProcessors) {
+        annotationProcessor dependency.getValue()
+    }
+    for (dependency in dependenciesTestAnnotationProcessors) {
+        testAnnotationProcessor dependency.getValue()
+    }
+
+    for (dependency in dependenciesTestImplementation) {
+        testImplementation dependency.getValue()
+    }
+    for (dependency in dependenciesTestCompile) {
+        testCompile dependency.getValue()
+    }
+
+    for (dependency in dependenciesTestJunit5) {
+        testCompile dependency.getValue()
+    }
+
+    for (dependency in dependenciesTestRuntimeJunit5) {
+        testRuntimeOnly dependency.getValue()
+    }
+
+}
+
+apply from: "$rootDir/commonConfiguration.gradle"
+
+
+jar {
+    enabled = true
+}
