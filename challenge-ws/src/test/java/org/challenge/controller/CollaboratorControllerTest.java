@@ -72,7 +72,7 @@ class CollaboratorControllerTest {
     }
 
     @Test
-    void getCollaboratorById_should_return_a_task() throws Exception {
+    void getCollaboratorById_should_return_a_collaborator() throws Exception {
         when(repository.findById(anyLong())).thenReturn(getOptionalCollaboratorMock());
 
         final ResultActions resultActions = mockMvc.perform(get("/collaborators/1")
