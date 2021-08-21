@@ -44,18 +44,19 @@ curl --location --request DELETE 'http://localhost:8081/collaborator-srv/collabo
 ```
 
 ## Swagger
-
+```
 http://localhost:8081/collaborator-srv/swagger-ui.html#/
-
+```
 ## Management
-
+```
 http://localhost:8082/collaborator-srv/management
-
+```
 ## Test
-
+```
 gradle clean test
-
+```
 ## Sonar
-
+```
 gradle clean -Dsonar.host.url=http://localhost:9000 sonarqube
+```
 
